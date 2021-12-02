@@ -29,13 +29,14 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'codecov', '~> 0.1.17'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.9'
-  spec.add_development_dependency 'rubocop', '~> 0.85.1'
-  spec.add_development_dependency 'rubocop-rspec', '~> 1.40'
-  spec.add_development_dependency 'rubocop-sorbet', '~> 0.4.0'
-  spec.add_development_dependency 'simplecov', '~> 0.18.5'
-  spec.add_development_dependency 'sorbet', '~> 0.5.5745'
-  spec.add_runtime_dependency 'sorbet-runtime', '~> 0.5'
+  spec.add_development_dependency 'codecov'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop-performance'
+  spec.add_development_dependency 'rubocop-rspec'
+  spec.add_development_dependency 'rubocop-sorbet'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'sorbet'
+  spec.add_runtime_dependency 'sorbet-runtime'
 end
