@@ -5,4 +5,16 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'pry-byebug', '>= 3.9'
+group :development do
+  gem 'pry-byebug'
+  gem 'rake'
+  gem 'rspec'
+  gem 'rubocop-performance'
+  gem 'rubocop-rake'
+  gem 'rubocop-rspec'
+  gem 'rubocop-sorbet'
+  gem 'rubocop'
+  gem 'sorbet'
+end
+
+gem 'sorbet-runtime'
