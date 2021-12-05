@@ -36,6 +36,12 @@ class Board
     end
   end
 
+  sig { void }
+  def foo
+    puts @rows.map { _1.join(' ') }
+    puts @matches.map { _1.join(' ') }
+  end
+
   sig { params(last_drawn: Integer).returns(Integer) }
   def score(last_drawn)
     acc = 0

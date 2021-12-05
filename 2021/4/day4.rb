@@ -12,4 +12,7 @@ boards = input.each_slice(6).map do |rows|
   rows[1..].map { |row| row.split.map(&:to_i) }
 end
 
-Game.new(numbers, boards).play
+game = Game.new(numbers, boards)
+game.play(Game::Strategy::Win)
+game.play(Game::Strategy::Lose)
+
