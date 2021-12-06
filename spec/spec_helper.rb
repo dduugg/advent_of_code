@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'ruby_template'
+require 'sorbet-runtime'
 
 if ENV['CI'] == 'true'
   require 'simplecov'

@@ -1,12 +1,13 @@
-#!/usr/bin/env ruby
 # typed: strict
 # frozen_string_literal: true
 
 require_relative './board'
 
+# A Bingo game including boards and a list of numbers to draw in order
 class Game
   extend T::Sig
 
+  # Whether to pick the cards that wins first (Win) or last (Lose)
   class Strategy < T::Enum
     enums do
       Lose = new
@@ -17,7 +18,7 @@ class Game
   sig { params(numbers: T::Array[Integer], boards: T::Array[Board::Rows]).void }
   def initialize(numbers, boards)
     @numbers = numbers
-    @boards = []
+    @boards = T.let([], T::Array[Board])
     boards.each { add_board(_1) }
   end
 
@@ -29,14 +30,14 @@ class Game
   sig { params(strategy: Strategy).void }
   def play(strategy = Strategy::Win)
     boards = @boards.clone
-    @numbers.each_with_index do |number, i|
+    @numbers.each do |number|
       boards.delete_if do |board|
         board.draw(number)
         if board.win?
           case strategy
           when Strategy::Lose
             if boards.size == 1
-              puts boards.first.score(number)
+              puts boards.fetch(0).score(number)
               return
             else
               true

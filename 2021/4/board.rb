@@ -1,9 +1,9 @@
-#!/usr/bin/env ruby
 # typed: strict
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
 
+# A class representing a bingo board and its game state
 class Board
   extend T::Sig
 
@@ -17,21 +17,19 @@ class Board
   def initialize(rows)
     @rows = T.let(rows, Rows)
     @matches = T.let([
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0]
-      ], Rows)
+                       [0, 0, 0, 0, 0],
+                       [0, 0, 0, 0, 0],
+                       [0, 0, 0, 0, 0],
+                       [0, 0, 0, 0, 0],
+                       [0, 0, 0, 0, 0]
+                     ], Rows)
   end
 
   sig { params(int: Integer).void }
   def draw(int)
     @rows.each_with_index do |row, i|
       row.each_with_index do |cell, j|
-        if cell == int
-          @matches[i][j] = 1
-        end
+        T.must(@matches[i])[j] = 1 if cell == int
       end
     end
   end

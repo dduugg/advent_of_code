@@ -1,0 +1,19 @@
+---
+name: Ruby
+'on': push
+jobs:
+  Ruby-CI:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['3.1.0-preview1']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - run: bundle install
+      - name: Run tests
+        run: bundle exec rake spec
