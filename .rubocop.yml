@@ -3,7 +3,6 @@ require:
   - rubocop-performance
   - rubocop-rake
   - rubocop-rspec
-  - rubocop-sorbet
 
 AllCops:
   NewCops: enable
@@ -14,5 +13,3 @@ Layout/ClassStructure:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
-Sorbet/StrictSigil:
-  Enabled: true

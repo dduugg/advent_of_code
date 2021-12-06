@@ -38,13 +38,13 @@ class Game
           when Strategy::Lose
             if boards.size == 1
               puts boards.fetch(0).score(number)
-              return
+              return nil
             else
               true
             end
           when Strategy::Win
             puts board.score(number)
-            return
+            return nil
           else T.absurd(strategy)
           end
         end
