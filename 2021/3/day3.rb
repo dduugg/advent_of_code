@@ -15,16 +15,10 @@ class BinaryDiagnostic
   sig { params(comparator: Symbol).returns(Integer) }
   def get_rating_using(comparator)
     rating_lines = @lines.clone
-    rating = []
     (0...rating_lines.fetch(0).size).each do |i|
       parts = rating_lines.partition { _1[i] == '0' }
-      if parts[0].size.public_send(comparator, parts[1].size)
-        rating[i] = 0
-        rating_lines = parts[0]
-      else
-        rating[i] = 1
-        rating_lines = parts[1]
-      end
+      digit = parts[0].size.public_send(comparator, parts[1].size) ? 0 : 1
+      rating_lines = parts[digit]
       break if rating_lines.size == 1
     end
     rating_lines.fetch(0).to_i(2)
