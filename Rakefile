@@ -4,7 +4,7 @@
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 
-RSpec::Core::RakeTask.new(:spec)
+RSpec::Core::RakeTask.new
 RuboCop::RakeTask.new
 
 desc 'typecheck files with sorbet'
@@ -14,4 +14,5 @@ task :typecheck do
   end
 end
 
+task ci: %i[rubocop spec]
 task default: %i[typecheck rubocop spec]
