@@ -14,5 +14,5 @@ task :typecheck do
   end
 end
 
-task ci: %i[rubocop spec]
+task ci: %i[typecheck rubocop spec]
 task default: %i[typecheck rubocop spec]

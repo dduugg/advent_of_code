@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# typed: strict
+# typed: false
 # frozen_string_literal: true
 
 # --- Day 5: Hydrothermal Venture ---

@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
@@ -16,20 +17,20 @@ class Lanternfish
 
   sig { params(day: Integer).returns(Integer) }
   def count_at_day(day)
-    return @days[day].sum if @days[day]
+    return @days.fetch(day).sum if @days[day]
 
     (1..day).each do |i|
       next if @days[i]
 
-      @days[i] = self.class.increment_day(@days[i - 1])
+      @days[i] = self.class.increment_day(@days.fetch(i - 1))
     end
-    @days[day].sum
+    @days.fetch(day).sum
   end
 
   sig { params(filename: String).returns(Population) }
   def parse_starting_file(filename)
     populations = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-    File.readlines(filename).first.chomp.split(',').map(&:to_i).each { |day| populations[day] += 1 }
+    File.readlines(filename).fetch(0).chomp.split(',').map(&:to_i).each { |day| populations[day] += 1 }
     populations
   end
 

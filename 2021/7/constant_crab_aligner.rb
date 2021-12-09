@@ -1,3 +1,4 @@
+# typed: strict
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
@@ -9,7 +10,7 @@ class ConstantCrabAligner
 
   sig { params(filepath: String).void }
   def initialize(filepath)
-    @crab_positions = File.readlines(filepath).first.chomp.split(',').map(&:to_i).sort
+    @crab_positions = T.let(File.readlines(filepath).fetch(0).chomp.split(',').map(&:to_i).sort, T::Array[Integer])
   end
 
   sig { params(position: Integer).returns(Integer) }
@@ -21,9 +22,9 @@ class ConstantCrabAligner
   def fuel_cost_of_optimal_alignment
     if @crab_positions.size.even?
       mid = (@crab_positions.size / 2)
-      align_at = (@crab_positions[mid - 1] + @crab_positions[mid]) / 2
+      align_at = (@crab_positions.fetch(mid - 1) + @crab_positions.fetch(mid)) / 2
     else
-      align_at = @crab_positions[@crab_positions.size / 2]
+      align_at = @crab_positions.fetch(@crab_positions.size / 2)
     end
     fuel_cost_to_align_at(align_at)
   end

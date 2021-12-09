@@ -45,7 +45,7 @@ class Board
     acc = 0
     @rows.each_with_index do |row, i|
       row.each_with_index do |cell, j|
-        acc += cell if @matches[i][j].zero?
+        acc += cell if @matches.fetch(i).fetch(j).zero?
       end
     end
     acc * last_drawn

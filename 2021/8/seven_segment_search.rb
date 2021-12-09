@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'set'
@@ -8,7 +9,7 @@ require 'sorbet-runtime'
 class SevenSegmentSearch
   extend T::Sig
 
-  Digits = T.type_alias { Array.new(10, String) }
+  Digits = T.type_alias { [String, String, String, String, String, String, String, String, String, String] }
   SEGMENTS = T.let(
     [
       %w[a b c e f g],
@@ -26,7 +27,7 @@ class SevenSegmentSearch
 
   sig { params(filepath: String).void }
   def initialize(filepath)
-    @input = File.readlines(filepath).map(&:chomp)
+    @input = T.let(File.readlines(filepath).map(&:chomp), T::Array[String])
   end
 
   sig { returns(T::Array[T::Array[Integer]]) }
@@ -53,6 +54,7 @@ class SevenSegmentSearch
   end
 
   # When frequency is insufficient to decode, look for specific digits with unique lengths
+  sig { params(digits: Digits, letter: String, count: Integer).returns([String, String]) }
   def solve_freq_collision(digits, letter, count)
     case count
     # 'd' appears in digit 4, which is the only digit with 4 segments

@@ -1,3 +1,4 @@
+# typed: strict
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
@@ -9,7 +10,7 @@ class LinearCrabAligner
 
   sig { params(filepath: String).void }
   def initialize(filepath)
-    @crab_positions = File.readlines(filepath).first.chomp.split(',').map(&:to_i)
+    @crab_positions = T.let(File.readlines(filepath).fetch(0).chomp.split(',').map(&:to_i), T::Array[Integer])
   end
 
   sig { params(position: Integer).returns(Integer) }
