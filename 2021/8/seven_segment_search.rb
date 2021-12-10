@@ -66,14 +66,10 @@ class SevenSegmentSearch
   end
 
   sig { returns(Integer) }
-  def sum_output
-    process_input.map { |digits| digits.map(&:to_s).join.to_i }.sum
-  end
+  def sum_output = process_input.map { |digits| digits.map(&:to_s).join.to_i }.sum
 
   sig { params(digits: Integer).returns(Integer) }
-  def sum_output_frequency(*digits)
-    process_input.flatten.count { digits.include?(_1) }
-  end
+  def sum_output_frequency(*digits) = process_input.flatten.count { digits.include?(_1) }
 
   sig { params(code: T::Array[String], digit_map: T::Hash[String, String]).returns(T::Array[Integer]) }
   def translate(code, digit_map)
