@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../../2021/3/day3'
+require_relative '../../../2021/03/day3'
 
 RSpec.describe BinaryDiagnostic do
   it 'calculated gamma * epsilon' do

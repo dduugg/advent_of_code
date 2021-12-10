@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../../2021/4/game'
+require_relative '../../../2021/04/game'
 
 RSpec.describe Game do
   describe '#play' do

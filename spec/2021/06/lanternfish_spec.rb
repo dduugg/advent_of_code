@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../../2021/6/lanternfish'
+require_relative '../../../2021/06/lanternfish'
 
 RSpec.describe Lanternfish do
   it 'counts test population at a date in the future' do

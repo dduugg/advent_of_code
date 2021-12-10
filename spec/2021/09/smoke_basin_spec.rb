@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../../2021/9/smoke_basin'
+require_relative '../../../2021/09/smoke_basin'
 
 RSpec.describe SmokeBasin do
   describe '#low_points' do

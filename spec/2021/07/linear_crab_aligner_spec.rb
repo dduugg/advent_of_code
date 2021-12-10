@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../../2021/7/linear_crab_aligner'
+require_relative '../../../2021/07/linear_crab_aligner'
 
 RSpec.describe LinearCrabAligner do
   it 'calculates the cost to align at a position with linearly increasing fuel use' do

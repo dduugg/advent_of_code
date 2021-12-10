@@ -1,11 +1,9 @@
 # typed: false
 # frozen_string_literal: true
 
-require 'set'
 require 'sorbet-runtime'
 
-# --- Day 8: Seven Segment Search ---
-# A class determine crab alignment when fuel costs increase linearly per step
+# --- Day 9: Smoke Basin ---
 class SmokeBasin
   extend T::Sig
 

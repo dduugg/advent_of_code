@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require_relative '../../../2021/5/day5'
+require_relative '../../../2021/05/day5'
 
 RSpec.describe HydrothermalVenture do
   it 'counts the multiple overlap grid spaces of the test file, excluding diagonals' do

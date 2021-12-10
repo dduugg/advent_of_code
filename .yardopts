@@ -1,0 +1,10 @@
+--main README.md
+--markup-provider=redcarpet
+--markup=markdown
+--private
+--plugin sorbet
+2021/**/*.rb
+solver.rb
+-
+LICENSE
+README.md

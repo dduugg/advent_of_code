@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../../2021/8/seven_segment_search'
+require_relative '../../../2021/08/seven_segment_search'
 
 RSpec.describe SevenSegmentSearch do
   describe '#sum_output_frequency' do
