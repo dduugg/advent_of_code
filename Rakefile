@@ -9,9 +9,7 @@ RuboCop::RakeTask.new
 
 desc 'typecheck files with sorbet'
 task :typecheck do
-  Dir['2021/**'].each do |dir|
-    sh "srb tc helper/ #{dir}"
-  end
+  sh 'srb tc helper/ 2021/'
 end
 
 task ci: %i[typecheck rubocop spec]
