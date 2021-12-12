@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require_relative '../../solver'
+require_relative '../../helper/solver'
 
 # --- Day 10: Syntax Scoring, part 2 ---
 class IncompleteSyntaxScoring < Solver
