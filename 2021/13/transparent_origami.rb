@@ -41,16 +41,16 @@ class TransparentOrigami < Solver
 
   sig { void }
   def init_points
-    @lines.select {_1.include?(',')}.map do
+    @points = @lines.select {_1.include?(',')}.map do
       x, y = _1.split(',').map(&:to_i)
-      @points << { x:, y: } # rubocop:disable Layout/SpaceAfterColon
+      { x:, y: }
    end
   end
 
   sig { returns(String) }
   def inspect
     Array.new(@size_y) do |y|
-      Array.new(@size_x) { |x| @points.include?({ x:, y: }) ? '#' : '.' } + ["\n"] # rubocop:disable Layout/SpaceAfterColon
+      Array.new(@size_x) { |x| @points.include?({ x:, y: }) ? '#' : '.' } + ["\n"]
     end.join
   end
 end

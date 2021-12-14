@@ -3,3 +3,7 @@ require:
   - rubocop-performance
   - rubocop-rake
   - rubocop-rspec
+
+# https://github.com/rubocop/rubocop/issues/10292
+Layout/SpaceAfterColon:
+  Enabled: false
