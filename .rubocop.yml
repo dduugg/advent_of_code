@@ -4,6 +4,9 @@ require:
   - rubocop-rake
   - rubocop-rspec
 
+AllCops:
+  NewCops: enable
+
 # https://github.com/rubocop/rubocop/issues/10292
 Layout/SpaceAfterColon:
   Enabled: false

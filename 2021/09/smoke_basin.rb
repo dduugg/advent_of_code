@@ -28,7 +28,7 @@ class SmokeBasin
   # parses the file into a grid, padding it with 9s all around to simplify some basin calculations
   sig { params(filepath: String).returns(T::Array[T::Array[Integer]]) }
   def parse_file_into_grid(filepath)
-    grid = File.readlines(filepath).map(&:chomp).map {[9] + _1.split('').map(&:to_i) + [9]}
+    grid = File.readlines(filepath).map(&:chomp).map {[9] + _1.chars.map(&:to_i) + [9]}
     [Array.new(grid.first.size, 9)] + grid + [Array.new(grid.first.size, 9)]
   end
 

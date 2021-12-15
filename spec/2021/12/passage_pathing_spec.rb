@@ -16,7 +16,8 @@ RSpec.describe PassagePathing do
       expect(described_class.new("#{__dir__}/test_input").count_paths(revisit: true)).to eq(103)
     end
 
-    it 'counts the number of paths with revisit', skip: 'slow' do
+    it 'counts the number of paths with revisit' do
+      skip 'slow' if ENV['CI'] != 'true'
       expect(described_class.new("#{__dir__}/input").count_paths(revisit: true)).to eq(133_360)
     end
   end

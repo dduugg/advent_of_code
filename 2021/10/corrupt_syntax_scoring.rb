@@ -16,7 +16,7 @@ class CorruptSyntaxScoring < Solver
 
   sig { params(line: String).returns(T.nilable(String)) }
   def self.corrupt_char(line)
-    line.split('').each_with_object([]) do |char, stack|
+    line.chars.each_with_object([]) do |char, stack|
       case char
       when *PAIRS.keys then stack.push(char)
       when *PAIRS.values then return char if PAIRS[stack.pop] != char

@@ -43,7 +43,7 @@ class SevenSegmentSearch
   # a: 8, b: 6, c: 8, d: 7, e: 4, f: 9, g: 7
   sig { params(digits: Digits).returns(T::Hash[String, String]) }
   def create_digit_map(digits)
-    digits.join.split('').tally.map do |letter, count|
+    digits.join.chars.tally.map do |letter, count|
       case count
       when 4 then [letter, 'e']
       when 6 then [letter, 'b']
@@ -58,21 +58,21 @@ class SevenSegmentSearch
   def solve_freq_collision(digits, letter, count)
     case count
     # 'd' appears in digit 4, which is the only digit with 4 segments
-    when 7 then digits.find {_1.size == 4}.split('').include?(letter) ? [letter, 'd'] : [letter, 'g']
+    when 7 then digits.find {_1.size == 4}.chars.include?(letter) ? [letter, 'd'] : [letter, 'g']
     # 'c' appears in digit 1, which is the only digit with 2 segments
-    when 8 then digits.find {_1.size == 2}.split('').include?(letter) ? [letter, 'c'] : [letter, 'a']
+    when 8 then digits.find {_1.size == 2}.chars.include?(letter) ? [letter, 'c'] : [letter, 'a']
     else raise ArgumentError, "Unexpected count: #{count}"
     end
   end
 
   sig { returns(Integer) }
-  def sum_output = process_input.map { |digits| digits.map(&:to_s).join.to_i }.sum
+  def sum_output = process_input.sum { |digits| digits.map(&:to_s).join.to_i }
 
   sig { params(digits: Integer).returns(Integer) }
   def sum_output_frequency(*digits) = process_input.flatten.count { digits.include?(_1) }
 
   sig { params(code: T::Array[String], digit_map: T::Hash[String, String]).returns(T::Array[Integer]) }
   def translate(code, digit_map)
-    code.map { |segment| SEGMENTS.find_index(segment.split('').map { digit_map[_1] }.to_set) }
+    code.map { |segment| SEGMENTS.find_index(segment.chars.map { digit_map[_1] }.to_set) }
   end
 end

@@ -30,7 +30,7 @@ class TransparentOrigami < Solver
     @points.each do |coord|
       next if coord.public_send(:[], axis) < index
 
-      coord.public_send(:[]=, axis, 2 * index - coord.public_send(:[], axis))
+      coord.public_send(:[]=, axis, (2 * index) - coord.public_send(:[], axis))
     end
     @points.uniq!
     instance_variable_set("@size_#{axis}", index)
@@ -41,10 +41,10 @@ class TransparentOrigami < Solver
 
   sig { void }
   def init_points
-    @points = @lines.select {_1.include?(',')}.map do
-      x, y = _1.split(',').map(&:to_i)
+    @points = @lines.select {_1.include?(',')}.map do |line|
+      x, y = line.split(',').map(&:to_i)
       { x:, y: }
-   end
+    end
   end
 
   sig { returns(String) }

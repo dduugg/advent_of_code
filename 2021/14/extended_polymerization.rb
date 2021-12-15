@@ -9,7 +9,7 @@ class ExtendedPolymerization < Solver
   def initialize(filepath)
     super
     @template = T.let(@lines.fetch(0).chomp, String)
-    @pairs = T.let(Hash.new { _1[_2] = 0 }, T::Hash[String, Integer])
+    @pairs = T.let(Hash.new { |h, k| h[k] = 0 }, T::Hash[String, Integer])
     @rules = T.let(@lines[2..].map { _1.split(' -> ') }.to_h, T::Hash[String, String])
     init_pairs
   end
@@ -25,7 +25,7 @@ class ExtendedPolymerization < Solver
 
   sig { void }
   def take_step
-    pairs_next = Hash.new { _1[_2] = 0 }
+    pairs_next = Hash.new { |h, k| h[k] = 0 }
     @pairs.each do |k, v|
       if @rules[k]
         pairs_next["#{k[0]}#{@rules[k]}"] += v
@@ -39,9 +39,9 @@ class ExtendedPolymerization < Solver
 
   sig { returns(Integer) }
   def diff
-    freq = Hash.new { _1[_2] = 0 }
-    @pairs.each { freq[_1[0]] += _2 } # count first char of each pair
+    freq = Hash.new { |h, k| h[k] = 0 }
+    @pairs.each { |k, v| freq[k[0]] += v } # count first char of each pair
     freq[@template[-1]] += 1 # count last char of template
-    freq.max_by { _2 }.last - freq.min_by { _2 }.last
+    freq.max_by { |_, v| v }.last - freq.min_by { |_, v| v }.last
   end
 end

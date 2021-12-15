@@ -9,7 +9,7 @@ class PassagePathing < Solver
   sig { params(filepath: String).void }
   def initialize(filepath)
     super
-    @graph = Hash.new { _1[_2] = Set.new }
+    @graph = Hash.new { |h, k| h[k] = Set.new }
     init_graph
     @large_caves, @small_caves = @graph.keys.partition { _1.match?(/\A[[:upper:]]+\z/) }.map(&:to_set)
     @small_caves.delete_if { %w[start end].include?(_1) }

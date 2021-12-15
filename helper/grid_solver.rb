@@ -13,7 +13,7 @@ class GridSolver < Solver
     super
     @grid = T.let({}, T::Hash[Coordinate, Integer])
     @lines.each_with_index do |line, row_num|
-      line.split('').each_with_index.map do |char, col_num|
+      line.chars.each_with_index.map do |char, col_num|
         @grid[[col_num, row_num]] = char.to_i
       end
     end
@@ -24,13 +24,17 @@ class GridSolver < Solver
   sig { returns(String) }
   def inspect = (0...@num_rows).map { |y| "#{(0...@num_cols).map { |x| @grid[[x, y]] }.join}\n" }.join
 
-  sig { params(coord: Coordinate).returns(T::Array[Coordinate]) }
-  def neighbors(coord)
+  sig { params(coord: Coordinate, include_diagonals: T::Boolean).returns(T::Array[Coordinate]) }
+  def neighbors(coord, include_diagonals: true)
     x, y = coord
-    [
-      [x - 1, y - 1], [x, y - 1], [x + 1, y - 1],
-      [x - 1, y],                 [x + 1, y],
-      [x - 1, y + 1], [x, y + 1], [x + 1, y + 1]
-    ].reject { |x2, y2| x2.negative? || y2.negative? || x2 >= @num_cols || y2 >= @num_rows }
+    [[x, y - 1], [x - 1, y], [x + 1, y], [x, y + 1]].concat(
+      include_diagonals ? [[x - 1, y - 1], [x + 1, y - 1], [x - 1, y + 1], [x + 1, y + 1]] : []
+    ).reject { |x2, y2| out_of_bounds?([x2, y2]) }
+  end
+
+  sig { params(coord: Coordinate).returns(T::Boolean) }
+  def out_of_bounds?(coord)
+    x, y = coord
+    x.negative? || y.negative? || x >= @num_cols || y >= @num_rows
   end
 end
