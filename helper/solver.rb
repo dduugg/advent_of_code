@@ -9,6 +9,9 @@ require_relative './core_ext/queue'
 class Solver
   extend T::Sig
 
+  sig { returns(T::Array[String]) }
+  attr_reader :lines
+
   sig { params(filepath: String).void }
   def initialize(filepath)
     @lines = T.let(File.readlines(filepath).map(&:chomp), T::Array[String])

@@ -7,6 +7,10 @@ require 'pry-byebug'
 
 Bundler.require
 
-Dir[File.expand_path '2021/**/*.rb'].each{ require_relative(_1) }
+def reload
+  Dir[File.expand_path '2021/**/*.rb'].each{ load(_1) }
+end
+
+reload
 
 Pry.start
