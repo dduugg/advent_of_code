@@ -13,7 +13,7 @@ class GridSolver < Solver
     super
     @grid = T.let({}, T::Hash[Coordinate, Integer])
     @lines.each_with_index do |line, row_num|
-      line.chars.each_with_index.map do |char, col_num|
+      line.chars.each_with_index do |char, col_num|
         @grid[[col_num, row_num]] = char.to_i
       end
     end

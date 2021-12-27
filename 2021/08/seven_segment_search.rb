@@ -43,14 +43,14 @@ class SevenSegmentSearch
   # a: 8, b: 6, c: 8, d: 7, e: 4, f: 9, g: 7
   sig { params(digits: Digits).returns(T::Hash[String, String]) }
   def create_digit_map(digits)
-    digits.join.chars.tally.map do |letter, count|
+    digits.join.chars.tally.to_h do |letter, count|
       case count
       when 4 then [letter, 'e']
       when 6 then [letter, 'b']
       when 7, 8 then solve_freq_collision(digits, letter, count)
       when 9 then [letter, 'f']
       end
-    end.to_h
+    end
   end
 
   # When frequency is insufficient to decode, look for specific digits with unique lengths
