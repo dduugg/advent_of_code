@@ -38,7 +38,7 @@ class BinaryDiagnostic
       process_gamma_line(line, memo)
     end
     gamma.map! { |i| i.positive? ? 1 : 0 }
-    epsilon = gamma.map { _1 ^ 1}
+    epsilon = gamma.map { _1 ^ 1 }
     gamma.join.to_i(2) * epsilon.join.to_i(2)
   end
 

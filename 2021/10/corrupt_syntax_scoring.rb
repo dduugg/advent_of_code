@@ -12,7 +12,7 @@ class CorruptSyntaxScoring < Solver
   def corrupt_chars = @lines.map { self.class.corrupt_char(_1) }.compact
 
   sig { returns(Integer) }
-  def score = corrupt_chars.reduce(0) { |acc, c| acc + POINTS[c] }
+  def score = corrupt_chars.reduce(0) { |acc, c| acc + POINTS.fetch(c) }
 
   sig { params(line: String).returns(T.nilable(String)) }
   def self.corrupt_char(line)

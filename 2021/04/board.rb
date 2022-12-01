@@ -56,7 +56,7 @@ class Board
     @matches.each do |row|
       return true if row.all? { _1 == 1 }
     end
-    (0..4).each do |i|
+    5.times do |i|
       return true if @matches.all? { _1[i] == 1 }
     end
     false

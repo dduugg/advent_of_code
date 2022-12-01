@@ -41,7 +41,7 @@ class TransparentOrigami < Solver
 
   sig { void }
   def init_points
-    @points = @lines.select {_1.include?(',')}.map do |line|
+    @points = @lines.select { _1.include?(',') }.map do |line|
       x, y = line.split(',').map(&:to_i)
       { x:, y: }
     end

@@ -14,7 +14,7 @@ class IncompleteSyntaxScoring < Solver
   sig { returns(Integer) }
   def score
     line_scores = incomplete_chars.map { _1.reverse.reduce(0) { |sum, char| (sum * 5) + POINTS.fetch(char) } }
-    line_scores.sort[line_scores.size / 2]
+    line_scores.sort.fetch(line_scores.size / 2)
   end
 
   sig { params(line: String).returns(T.nilable(T::Array[String])) }

@@ -6,7 +6,7 @@ RSpec.describe DumboOctopus do
   describe '#step' do
     it 'advances the grid' do
       expect(described_class.new("#{__dir__}/test_input").step(3).inspect).to eq(
-        "0050900866\n8500800575\n9900000039\n9700000041\n9935080063\n"\
+        "0050900866\n8500800575\n9900000039\n9700000041\n9935080063\n" \
         "7712300000\n7911250009\n2211130000\n0421125000\n0021119000\n"
       )
     end

@@ -58,9 +58,9 @@ class SevenSegmentSearch
   def solve_freq_collision(digits, letter, count)
     case count
     # 'd' appears in digit 4, which is the only digit with 4 segments
-    when 7 then digits.find {_1.size == 4}.chars.include?(letter) ? [letter, 'd'] : [letter, 'g']
+    when 7 then digits.find { _1.size == 4 }.chars.include?(letter) ? [letter, 'd'] : [letter, 'g']
     # 'c' appears in digit 1, which is the only digit with 2 segments
-    when 8 then digits.find {_1.size == 2}.chars.include?(letter) ? [letter, 'c'] : [letter, 'a']
+    when 8 then digits.find { _1.size == 2 }.chars.include?(letter) ? [letter, 'c'] : [letter, 'a']
     else raise ArgumentError, "Unexpected count: #{count}"
     end
   end

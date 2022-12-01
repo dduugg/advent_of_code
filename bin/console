@@ -8,7 +8,7 @@ require 'pry-byebug'
 Bundler.require
 
 def reload
-  Dir[File.expand_path '2021/**/*.rb'].each{ load(_1) }
+  Dir[File.expand_path '2022/**/*.rb'].each { load(_1) }
 end
 
 reload
