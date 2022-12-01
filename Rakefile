@@ -9,7 +9,7 @@ RuboCop::RakeTask.new
 
 desc 'typecheck files with sorbet'
 task :typecheck do
-  sh 'srb tc helper/ 2021/'
+  sh 'srb tc helper/ 2021/ 2022/'
 end
 
 task ci: %i[typecheck rubocop spec]
