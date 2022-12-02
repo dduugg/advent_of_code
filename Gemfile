@@ -13,6 +13,7 @@ group :development do
   gem 'rubocop-rspec'
   gem 'rubocop-sorbet'
   gem 'sorbet'
+  gem 'tapioca'
 end
 
 gem 'sorbet-runtime'
