@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require_relative '../../../2021/10/incomplete_syntax_scoring'

@@ -3,14 +3,7 @@ require:
   - rubocop-performance
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-sorbet
 
 AllCops:
   NewCops: enable
-
-# https://github.com/rubocop/rubocop/issues/10292
-Layout/SpaceAfterColon:
-  Enabled: false
-# Even rubocop thinks this is overkill: https://github.com/rubocop/rubocop/blob/v1.23.0/.rubocop.yml#L87
-Metrics/BlockLength:
-  Exclude:
-  - 'spec/**/*.rb'

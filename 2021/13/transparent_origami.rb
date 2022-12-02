@@ -1,4 +1,4 @@
-# typed: ignore
+# typed: strict
 # frozen_string_literal: true
 
 require_relative '../../helper/solver'
@@ -19,8 +19,8 @@ class TransparentOrigami < Solver
     @lines.select { _1.start_with?('fold along ') }.each_with_index do |line, index|
       break if limit && index >= limit
 
-      axis, index = line[11..].split('=')
-      exec_fold(axis.to_sym, index.to_i)
+      axis, index = T.must(line[11..]).split('=')
+      exec_fold(T.must(axis).to_sym, index.to_i)
     end
     self
   end
@@ -43,7 +43,7 @@ class TransparentOrigami < Solver
   def init_points
     @points = @lines.select { _1.include?(',') }.map do |line|
       x, y = line.split(',').map(&:to_i)
-      { x:, y: }
+      { x: T.must(x), y: T.must(y) }
     end
   end
 

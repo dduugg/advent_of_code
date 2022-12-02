@@ -1,4 +1,4 @@
-# typed: ignore
+# typed: true
 # frozen_string_literal: true
 
 require_relative '../../helper/solver'
@@ -11,13 +11,15 @@ class PassagePathing < Solver
     @graph = Hash.new { |h, k| h[k] = Set.new }
     init_graph
     @large_caves, @small_caves = @graph.keys.partition { _1.match?(/\A[[:upper:]]+\z/) }.map(&:to_set)
-    @small_caves.delete_if { %w[start end].include?(_1) }
+    T.must(@small_caves).delete_if { %w[start end].include?(_1) }
   end
 
   sig { params(revisit: T::Boolean).returns(Integer) }
   def count_paths(revisit: false)
     @count = 0
-    q = Queue.new([['start']])
+    # https://github.com/sorbet/sorbet/pull/6588
+    q = Queue.new
+    q << ['start']
     process_path(q, revisit:) until q.empty?
     @count
   end

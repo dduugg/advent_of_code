@@ -17,3 +17,5 @@ Sorbet does not recognize `Hash#sum`: https://github.com/sorbet/sorbet/issues/49
 
 ### Day 12
 Rubocop offers [conflitcting](https://github.com/rubocop/rubocop/issues/10292) guidance when using Ruby 3.1 keyword omission.
+
+Sorbet does not recognize initializing a Queue with an Enumerable: https://github.com/sorbet/sorbet/pull/6588
