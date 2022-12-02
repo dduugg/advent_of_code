@@ -1,7 +1,6 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'set'
 require_relative '../../helper/grid_solver'
 
 # --- Day 11: Dumbo Octopus ---

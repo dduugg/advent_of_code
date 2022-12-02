@@ -1,7 +1,6 @@
 # typed: ignore
 # frozen_string_literal: true
 
-require 'set'
 require_relative '../../helper/solver'
 
 # --- Day 12: Passage Pathing ---

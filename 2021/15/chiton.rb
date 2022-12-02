@@ -1,7 +1,6 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'set'
 require_relative '../../helper/grid_solver'
 
 # --- Day 15: Chiton ---

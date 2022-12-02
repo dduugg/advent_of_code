@@ -1,6 +1,10 @@
 # Advent of Code
 
-2021 Advent of Code solved using Ruby 3.1.0-preview1.
+Advent of Code solved using Ruby preview releases.
+
+## 2022
+
+## 2021
 
 ### Day 2
 Github syntax highlighting has trouble with Ruby 3 pattern matching:
