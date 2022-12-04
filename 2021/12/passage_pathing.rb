@@ -17,9 +17,7 @@ class PassagePathing < Solver
   sig { params(revisit: T::Boolean).returns(Integer) }
   def count_paths(revisit: false)
     @count = 0
-    # https://github.com/sorbet/sorbet/pull/6588
-    q = Queue.new
-    q << ['start']
+    q = Queue.new([['start']])
     process_path(q, revisit:) until q.empty?
     @count
   end

@@ -4,6 +4,7 @@
 source 'https://rubygems.org'
 
 group :development do
+  gem 'dotenv'
   gem 'pry-byebug'
   gem 'rake'
   gem 'rspec'

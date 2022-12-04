@@ -12,5 +12,5 @@ class RucksackReorganization < Solver
   def badge_sum = score(@lines.map(&:chars).each_slice(3).map { T.must(_1.reduce(&:&)).fetch(0) })
 
   sig { params(letters: T::Array[String]).returns(Integer) }
-  def score(letters) = letters.map { _1.downcase == _1 ? _1.ord - 96 : _1.ord - 38 }.sum
+  def score(letters) = letters.map(&:ord).map { _1 > 'Z'.ord ? _1 - 96 : _1 - 38 }.sum
 end
