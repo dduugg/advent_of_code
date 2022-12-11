@@ -5,7 +5,7 @@ require_relative '../../helper/solver'
 
 # --- Day 9: Rope Bridge ---
 class RopeBridge < Solver
-  attr_accessor :hpos, :tpos, :tail_visited, :steps
+  attr_reader :hpos, :tpos, :tail_visited
 
   sig { params(filepath: String).void }
   def initialize(filepath)
@@ -16,8 +16,7 @@ class RopeBridge < Solver
     @steps = @lines.map(&:split).map { |d, n| [d, n.to_i] }
   end
 
-  # not 6476
-  def apply
+  def apply # rubocop:disable Metrics/MethodLength
     @steps.each do |dir, num|
       num.times do
         case dir
@@ -36,18 +35,13 @@ class RopeBridge < Solver
     return if adj?
 
     case dir
-    when 'L' then @tpos = [hpos[0]+1, hpos[1]]
-    when 'R' then @tpos = [hpos[0]-1, hpos[1]]
+    when 'L' then @tpos = [hpos[0] + 1, hpos[1]]
+    when 'R' then @tpos = [hpos[0] - 1, hpos[1]]
     when 'U' then @tpos = [hpos[0], hpos[1] + 1]
     when 'D' then @tpos = [hpos[0], hpos[1] - 1]
     end
-    # binding.pry
     @tail_visited << tpos
   end
 
-  def adj?
-    ans = (hpos.first - tpos.first).abs <= 1 && (hpos.last - tpos.last).abs <= 1
-    # puts [hpos, tpos, ans].join(' ')
-    ans
-  end
+  def adj? = (hpos.first - tpos.first).abs <= 1 && (hpos.last - tpos.last).abs <= 1
 end

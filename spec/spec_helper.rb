@@ -1,6 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
+require 'pry-byebug'
 require 'bundler/setup'
 require 'sorbet-runtime'
 
