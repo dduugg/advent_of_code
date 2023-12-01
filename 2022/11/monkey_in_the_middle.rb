@@ -5,6 +5,7 @@ require_relative '../../helper/solver'
 
 # --- Day 11: Monkey in the Middle ---
 class MonkeyInTheMiddle < Solver
+  # Monkey Struct
   class Monkey < T::Struct
     prop :items, T::Array[Integer]
     const :operation, T.proc.params(arg0: Integer).returns(Integer)

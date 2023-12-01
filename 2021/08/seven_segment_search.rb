@@ -72,6 +72,6 @@ class SevenSegmentSearch
 
   sig { params(code: T::Array[String], digit_map: T::Hash[String, String]).returns(T::Array[Integer]) }
   def translate(code, digit_map)
-    code.map { |segment| SEGMENTS.find_index(segment.chars.map { digit_map[_1] }.to_set) }
+    code.map { |segment| SEGMENTS.find_index(segment.chars.to_set { digit_map[_1] }) }
   end
 end

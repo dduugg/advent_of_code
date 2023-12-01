@@ -5,6 +5,7 @@ require_relative '../../helper/solver'
 
 # --- Day 7: No Space Left On Device ---
 class NoSpaceLeftOnDevice < Solver
+  # Listing Struct
   class Listing < T::Struct
     const :name, String
     const :parent, T.nilable(Listing)

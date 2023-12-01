@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require_relative './solver'
+require_relative 'solver'
 
 # A general solver for Advent of Code grid problems
 # Grid origin is top left corner, with x increasing to the right and y increasing down

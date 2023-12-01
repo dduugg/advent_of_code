@@ -1,7 +1,7 @@
 # typed: false
 # frozen_string_literal: true
 
-require_relative './board'
+require_relative 'board'
 
 # A Bingo game including boards and a list of numbers to draw in order
 class Game

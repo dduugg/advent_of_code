@@ -10,7 +10,7 @@ class ExtendedPolymerization < Solver
     super
     @template = T.let(@lines.fetch(0).chomp, String)
     @pairs = T.let(Hash.new { |h, k| h[k] = 0 }, T::Hash[String, Integer])
-    @rules = T.let(@lines[2..].map { _1.split(' -> ') }.to_h, T::Hash[String, String])
+    @rules = T.let(@lines[2..].to_h { _1.split(' -> ') }, T::Hash[String, String])
     init_pairs
   end
 

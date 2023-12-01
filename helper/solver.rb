@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
-require_relative './core_ext/queue'
+require_relative 'core_ext/queue'
 
 # A general solver for Advent of Code problems
 # @see https://adventofcode.com/ Advent of Code

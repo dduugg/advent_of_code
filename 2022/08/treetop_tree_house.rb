@@ -90,7 +90,7 @@ class TreetopTreeHouse < GridSolver
   sig { returns(Integer) }
   def max_viewing_product
     current_max = T.let(0, Integer)
-    @max_potential.sort_by { |_, v| -v }.each do |(col, row), _potential|
+    @max_potential.sort_by { |_, v| -v }.each do |(col, row), _potential| # rubocop:disable Style/HashEachMethods
       next if @grid.fetch([col, row]).zero?
 
       distance = viewing_distance(col, row)

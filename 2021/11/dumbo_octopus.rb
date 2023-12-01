@@ -24,7 +24,7 @@ class DumboOctopus < GridSolver
 
   sig { void }
   def take_step
-    @grid.each { |coord, _| step_coordinate(coord) }
+    @grid.each_key { |coord| step_coordinate(coord) }
     process_flash_queue
   end
 
