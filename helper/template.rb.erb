@@ -4,6 +4,11 @@
 require_relative '../../helper/solver'
 
 class Y<%= year %>D<%= day %> < Solver
+  sig { params(filepath: String).void }
+  def initialize(filepath = '<%= year %>/<%= day %>/input')
+    super
+  end
+
   sig { returns(Integer) }
   def part1
 
