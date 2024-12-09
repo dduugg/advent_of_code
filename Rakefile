@@ -1,7 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
+require 'date'
 require 'dotenv/load'
+require 'erb'
 require 'fileutils'
 require 'net/http'
 require 'rspec/core/rake_task'
@@ -13,18 +15,28 @@ RuboCop::RakeTask.new
 desc 'get input for day'
 task :input do
   day = ARGV[1]
-  puts ENV.fetch('AOC_COOKIE')
-  input = Net::HTTP.get(URI("https://adventofcode.com/2024/day/#{day}/input"), { 'Cookie' => "session=#{ENV.fetch('AOC_COOKIE')}" })
+  year = ARGV[2] || Date.today.year
+  input = Net::HTTP.get(
+    URI("https://adventofcode.com/#{year}/day/#{day}/input"),
+    { 'Cookie' => "session=#{ENV.fetch('AOC_COOKIE')}" }
+  )
   day = "0#{day}" if day.size == 1
-  FileUtils.mkdir_p("2024/#{day}")
-  FileUtils.mkdir_p("spec/2024/#{day}")
-  File.write("2024/#{day}/input", input)
-  File.write("spec/2024/#{day}/input", input)
+  FileUtils.mkdir_p("#{year}/#{day}")
+  FileUtils.mkdir_p("spec/#{year}/#{day}")
+  File.write("#{year}/#{day}/input", input)
+  File.write("spec/#{year}/#{day}/input", input)
+
+  template = File.read('helper/template.rb.erb')
+  erb_result = ERB.new(template).result(binding)
+  File.write("#{year}/#{day}/day#{day}.rb", erb_result)
 end
 
 # Suppress errors for day argument to input task
 # Now you can invoke "rake input 5" to e.g. get the input for day 5
-25.times { task :"#{_1 + 1}" }
+25.times do
+  task :"#{_1 + 1}"
+  task :"#{Date.today.year - _1}/"
+end
 
 desc 'typecheck files with sorbet'
 task :typecheck do
