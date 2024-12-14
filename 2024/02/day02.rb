@@ -12,10 +12,9 @@ class Y2024D02 < Solver
 
   sig { params(report: T::Array[Integer]).returns(T::Boolean) }
   def safe?(report)
-    puts report.join(' ')
-    direction = (report[1] - report[0]).positive? ? 1 : -1
+    direction = (report.fetch(1) - report.fetch(0)).positive? ? 1 : -1
     report.each_cons(2).all? do |a, b|
-      diff = (b - a) * direction
+      diff = (T.must(b) - T.must(a)) * direction
       diff.positive? && diff < 4
     end
   end
@@ -30,27 +29,33 @@ class Y2024D02 < Solver
   def safe_with_bad_report?(report)
     direction = calc_direction(report)
     report.size.times do |i|
-      next if valid_diff?(report, i, direction)
+      next if valid?(report, i, direction)
 
-      if i == 1
-        return true if safe?(report[1..])
-      elsif i == report.size - 1
-        return true if safe?(report[..(i - 2)])
-      end
-      return safe?(report[..(i - 1)] + report[(i + 1)..])
+      check_report(report, i)
     end
     true
   end
 
+  sig { params(report: T::Array[Integer], index: Integer).returns(T::Boolean) }
+  def check_report(report, index) # rubocop:disable Metrics/AbcSize
+    if index == 1
+      return true if safe?(T.must(report[1..]))
+    elsif index == report.size - 1
+      return true if safe?(T.must(report[..(index - 2)]))
+    end
+    safe?(T.must(report[..(index - 1)]) + T.must(report[(index + 1)..]))
+  end
+
+  sig { params(report: T::Array[Integer], index: Integer, direction: Integer).returns(T::Boolean) }
   def valid?(report, index, direction)
     return true if index.zero?
 
-    diff = (report[index] - report[index - 1]) * direction
+    diff = (report.fetch(index) - report.fetch(index - 1)) * direction
     diff.positive? || diff < 4
   end
 
   sig { params(report: T::Array[Integer]).returns(Integer) }
   def calc_direction(report)
-    report.each_cons(2).map { |a, b| (b - a).positive? }.count { _1 } > 1 ? 1 : -1
+    report.each_cons(2).map { |a, b| (T.must(b) - T.must(a)).positive? }.count { _1 } > 1 ? 1 : -1
   end
 end

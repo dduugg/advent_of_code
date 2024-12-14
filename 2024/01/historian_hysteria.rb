@@ -6,18 +6,18 @@ require_relative '../../helper/solver'
 # --- Day 1: Historian Hysteria ---
 class HistorianHysteria < Solver
   sig { returns(Integer) }
-  def part_1
+  def part1
     list1, list2 = to_lists
     list1.sort!
     list2.sort!
-    list1.zip(list2).map { |a, b| (a - b).abs }.sum
+    list1.zip(list2).sum { |a, b| (a - T.must(b)).abs }
   end
 
   sig { returns(Integer) }
-  def part_2
+  def part2
     list1, list2 = to_lists
     table = list2.tally
-    list1.map { |n| n * table.fetch(n, 0) }.sum
+    list1.sum { |n| n * table.fetch(n, 0) }
   end
 
   sig { returns([T::Array[Integer], T::Array[Integer]]) }

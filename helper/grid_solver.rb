@@ -11,10 +11,10 @@ class GridSolver < Solver
   sig { params(filepath: String).void }
   def initialize(filepath)
     super
-    @grid = T.let({}, T::Hash[Coordinate, Integer])
+    @grid = T.let({}, T::Hash[Coordinate, String])
     @lines.each_with_index do |line, row_num|
       line.chars.each_with_index do |char, col_num|
-        @grid[[col_num, row_num]] = char.to_i
+        @grid[[col_num, row_num]] = char
       end
     end
     @num_rows = T.let(@lines.size, Integer)

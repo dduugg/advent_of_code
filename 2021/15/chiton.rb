@@ -11,6 +11,7 @@ class Chiton < GridSolver
   sig { params(filepath: String).void }
   def initialize(filepath)
     super
+    @int_grid = @grid.transform_values(&:to_i)
     @came_from = T.let({}, T::Hash[GridSolver::Coordinate, GridSolver::Coordinate])
   end
 
@@ -35,9 +36,9 @@ class Chiton < GridSolver
     @num_cols.times do |x|
       @num_rows.times do |y|
         coord = [x, y]
-        next if @grid[coord]
+        next if @int_grid[coord]
 
-        @grid[coord] = new_grid_value(coord)
+        @int_grid[coord] = new_grid_value(coord)
       end
     end
     self
@@ -60,13 +61,13 @@ class Chiton < GridSolver
   def new_grid_value(coord)
     x, y = coord
     scale = @num_cols / GRID_EXPANSION_FACTOR
-    result = @grid.fetch([x % scale, y % scale]) + (x / scale) + (y / scale)
+    result = @int_grid.fetch([x % scale, y % scale]) + (x / scale) + (y / scale)
     result > 9 ? result - 9 : result
   end
 
   sig { params(current: GridSolver::Coordinate, neighbor: GridSolver::Coordinate).void }
   def process_neighbor(current, neighbor)
-    tentative_g_score = @g_score[current] + @grid[neighbor]
+    tentative_g_score = @g_score[current] + @int_grid[neighbor]
     return if tentative_g_score >= @g_score[neighbor]
 
     @came_from[neighbor] = current
@@ -79,7 +80,7 @@ class Chiton < GridSolver
   def sum_path(current)
     total = 0
     while @came_from.key?(current)
-      total += @grid.fetch(current)
+      total += @int_grid.fetch(current)
       current = @came_from.fetch(current)
     end
     total

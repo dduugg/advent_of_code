@@ -37,7 +37,7 @@ class Snailfish < Solver
     # prevents stack overflows in pry
     sig { returns(String) }
     def inspect
-      str = +"<#{self.class.name}"
+      str = "<#{self.class.name}"
       self.class.props.keys.each do |prop| # rubocop:disable Style/HashEachMethods
         if prop == :parent && parent
           str << " parent=#{parent.object_id}"

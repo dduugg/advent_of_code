@@ -14,6 +14,7 @@ class DumboOctopus < GridSolver
     @flash_count = T.let(0, Integer)
     @flash_queue = T.let(Queue.new, Queue)
     @flashed = T.let(Set.new, T::Set[GridSolver::Coordinate])
+    @int_grid = T.let(@grid.transform_values(&:to_i), T::Hash[Coordinate, Integer])
   end
 
   sig { params(num_steps: Integer).returns(T.self_type) }
@@ -24,13 +25,13 @@ class DumboOctopus < GridSolver
 
   sig { void }
   def take_step
-    @grid.each_key { |coord| step_coordinate(coord) }
+    @int_grid.each_key { |coord| step_coordinate(coord) }
     process_flash_queue
   end
 
   sig { params(coord: GridSolver::Coordinate).void }
   def flash(coord)
-    @grid[coord] = 0
+    @int_grid[coord] = 0
     @flash_queue.push(coord)
     @flashed << coord
   end
@@ -50,7 +51,7 @@ class DumboOctopus < GridSolver
   def step_coordinate(coord)
     return if @flashed.include?(coord)
 
-    @grid[coord] == 9 ? flash(coord) : @grid[coord] = @grid.fetch(coord) + 1
+    @int_grid[coord] == 9 ? flash(coord) : @int_grid[coord] = @int_grid.fetch(coord) + 1
   end
 
   sig { returns(Integer) }
@@ -64,5 +65,5 @@ class DumboOctopus < GridSolver
   end
 
   sig { returns(T::Boolean) }
-  def synchronized? = @grid.all? { |_, val| val.zero? }
+  def synchronized? = @int_grid.all? { |_, val| val.zero? }
 end

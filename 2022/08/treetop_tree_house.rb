@@ -18,8 +18,9 @@ class TreetopTreeHouse < GridSolver
   sig { params(filepath: String).void }
   def initialize(filepath)
     super
+    @int_grid = T.let(@grid.transform_values(&:to_i), T::Hash[Coordinate, Integer])
     @max_potential = T.let(
-      @grid.to_h { |(col, row), _| [[col, row], col * (@num_cols - col - 1) * row * (@num_rows - row - 1)] },
+      @int_grid.to_h { |(col, row), _| [[col, row], col * (@num_cols - col - 1) * row * (@num_rows - row - 1)] },
       T::Hash[Coordinate, Integer]
     )
   end
@@ -50,7 +51,7 @@ class TreetopTreeHouse < GridSolver
 
   sig { params(col: Integer, row: Integer, max_seen: Integer, vis: T::Set[Coordinate]).returns([Integer, Integer]) }
   def check(col, row, max_seen, vis)
-    height = @grid.fetch([col, row])
+    height = @int_grid.fetch([col, row])
     if height > max_seen
       vis << [col, row]
       max_seen = height
@@ -67,7 +68,7 @@ class TreetopTreeHouse < GridSolver
 
   sig { params(col: Integer, row: Integer).returns(Integer) }
   def viewing_distance(col, row)
-    height = @grid.fetch([col, row])
+    height = @int_grid.fetch([col, row])
     T.must(From.values.map { count_dir(_1, col, row, height) }.reduce(&:*))
   end
 
@@ -75,23 +76,32 @@ class TreetopTreeHouse < GridSolver
   def count_dir(dir, col, row, height)
     case dir
     when From::Left then count_left(col, row, height)
-    when From::Right then (((col + 1)...@num_cols).find { @grid.fetch([_1, row]) >= height } || (@num_cols - 1)) - col
+    when From::Right then count_right(col, row, height)
     when From::Top then count_top(col, row, height)
-    when From::Bottom then (((row + 1)...@num_rows).find { @grid.fetch([col, _1]) >= height } || (@num_rows - 1)) - row
+    when From::Bottom then (((row + 1)...@num_rows).find { |row|
+      @int_grid.fetch([col, row]) >= height
+    } || (@num_rows - 1)) - row
     end
   end
 
   sig { params(col: Integer, row: Integer, height: Integer).returns(Integer) }
-  def count_left(col, row, height) = col - (col - 1).downto(0).find { @grid.fetch([_1, row]) >= height }.to_i
+  def count_left(col, row, height) = col - (col - 1).downto(0).find { @int_grid.fetch([_1, row]) >= height }.to_i
 
   sig { params(col: Integer, row: Integer, height: Integer).returns(Integer) }
-  def count_top(col, row, height) = row - (row - 1).downto(0).find { @grid.fetch([col, _1]) >= height }.to_i
+  def count_right(col, row, height)
+    (((col + 1)...@num_cols).find { |c|
+      @int_grid.fetch([c, row]) >= height
+    } || (@num_cols - 1)) - col
+  end
+
+  sig { params(col: Integer, row: Integer, height: Integer).returns(Integer) }
+  def count_top(col, row, height) = row - (row - 1).downto(0).find { @int_grid.fetch([col, _1]) >= height }.to_i
 
   sig { returns(Integer) }
   def max_viewing_product
     current_max = T.let(0, Integer)
-    @max_potential.sort_by { |_, v| -v }.each do |(col, row), _potential| # rubocop:disable Style/HashEachMethods
-      next if @grid.fetch([col, row]).zero?
+    @max_potential.sort_by { |_, v| -v }.each do |(col, row), _potential|
+      next if @int_grid.fetch([col, row]).zero?
 
       distance = viewing_distance(col, row)
       current_max = distance if distance > current_max

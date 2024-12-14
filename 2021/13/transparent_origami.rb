@@ -33,7 +33,7 @@ class TransparentOrigami < Solver
       coord.public_send(:[]=, axis, (2 * index) - coord.public_send(:[], axis))
     end
     @points.uniq!
-    instance_variable_set("@size_#{axis}", index)
+    instance_variable_set(:"@size_#{axis}", index)
   end
 
   sig { returns(Integer) }

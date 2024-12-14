@@ -33,9 +33,11 @@ end
 
 # Suppress errors for day argument to input task
 # Now you can invoke "rake input 5" to e.g. get the input for day 5
-25.times do
-  task :"#{_1 + 1}"
-  task :"#{Date.today.year - _1}/"
+25.times do |i|
+  # rubocop:disable Rake/Desc
+  task :"#{i + 1}"
+  task :"#{Date.today.year - i}/"
+  # rubocop:enable Rake/Desc
 end
 
 desc 'typecheck files with sorbet'
