@@ -37,7 +37,7 @@ class Y2024D02 < Solver
   end
 
   sig { params(report: T::Array[Integer], index: Integer).returns(T::Boolean) }
-  def check_report(report, index) # rubocop:disable Metrics/AbcSize
+  def check_report(report, index)
     if index == 1
       return true if safe?(T.must(report[1..]))
     elsif index == report.size - 1

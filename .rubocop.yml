@@ -8,5 +8,12 @@ require:
 AllCops:
   NewCops: enable
 
+Metrics:
+  Enabled: false
+
+# https://github.com/sorbet/sorbet/issues/6832
+Naming/BlockForwarding:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false

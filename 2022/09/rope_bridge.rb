@@ -16,7 +16,7 @@ class RopeBridge < Solver
     @steps = @lines.map(&:split).map { |d, n| [d, n.to_i] }
   end
 
-  def apply # rubocop:disable Metrics/MethodLength
+  def apply
     @steps.each do |dir, num|
       num.times do
         case dir

@@ -5,6 +5,8 @@ require_relative '../../helper/grid_solver'
 
 # --- Day 8: Treetop Tree House ---
 class TreetopTreeHouse < GridSolver
+  Elem = type_member(:out) { { fixed: Coordinate } }
+
   # Represents a viewing direction
   class From < T::Enum
     enums do

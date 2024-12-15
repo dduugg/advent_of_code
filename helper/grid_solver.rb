@@ -6,7 +6,11 @@ require_relative 'solver'
 # A general solver for Advent of Code grid problems
 # Grid origin is top left corner, with x increasing to the right and y increasing down
 class GridSolver < Solver
+  extend T::Generic
+  include Enumerable
+
   Coordinate = T.type_alias { [Integer, Integer] }
+  Elem = type_member(:out) { { fixed: [Integer, Integer] } }
 
   sig { params(filepath: String).void }
   def initialize(filepath)
@@ -23,6 +27,15 @@ class GridSolver < Solver
 
   sig { returns(String) }
   def inspect = (0...@num_rows).map { |y| "#{(0...@num_cols).map { |x| @grid[[x, y]] }.join}\n" }.join
+
+  sig { override.params(_blk: T.proc.params(arg0: Elem).void).void }
+  def each(&_blk)
+    @lines.each_with_index do |line, row_num|
+      line.chars.each_with_index do |_, col_num|
+        yield [col_num, row_num]
+      end
+    end
+  end
 
   sig { params(coord: Coordinate, include_diagonals: T::Boolean).returns(T::Array[Coordinate]) }
   def neighbors(coord, include_diagonals: true)

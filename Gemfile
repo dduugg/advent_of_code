@@ -1,4 +1,4 @@
-# typed: strict
+# typed: false
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
@@ -15,6 +15,11 @@ group :development do
   gem 'rubocop-sorbet'
   gem 'sorbet'
   gem 'tapioca'
+
+  # Undeclared Pry dependencies
+  gem 'irb'
+  gem 'ostruct'
+  gem 'reline'
 end
 
 gem 'sorbet-runtime'

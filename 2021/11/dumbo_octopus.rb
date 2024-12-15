@@ -5,6 +5,8 @@ require_relative '../../helper/grid_solver'
 
 # --- Day 11: Dumbo Octopus ---
 class DumboOctopus < GridSolver
+  Elem = type_member(:out) { { fixed: Coordinate } }
+
   sig { returns(Integer) }
   attr_reader :flash_count
 

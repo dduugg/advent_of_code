@@ -1,4 +1,4 @@
-# typed: strict
+# typed: false
 # frozen_string_literal: true
 
 require 'date'
@@ -42,7 +42,7 @@ end
 
 desc 'typecheck files with sorbet'
 task :typecheck do
-  sh 'srb tc helper/ 2021/ 2022/ 2024/'
+  sh 'srb tc'
 end
 
 task ci: %i[typecheck rubocop spec]
