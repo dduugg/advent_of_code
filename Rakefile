@@ -31,7 +31,7 @@ task :day do
 
   spec_template = File.read('helper/spec_template.rb.erb')
   spec_erb_result = ERB.new(spec_template).result(binding)
-  File.write("spec/#{year}/#{day}/day#{day}_spec.rb", spec_erb_result)
+  File.write("spec/#{year}/#{day}/y#{year}_d#{day}_spec.rb", spec_erb_result)
 end
 
 # Suppress errors for day argument to input task

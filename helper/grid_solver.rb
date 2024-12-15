@@ -12,6 +12,27 @@ class GridSolver < Solver
   Coordinate = T.type_alias { [Integer, Integer] }
   Elem = type_member(:out) { { fixed: [Integer, Integer] } }
 
+  class Direction < T::Enum
+    extend T::Sig
+
+    enums do
+      North = new
+      South = new
+      East = new
+      West = new
+    end
+
+    sig { returns(Direction) }
+    def turn_right
+      case self
+      when North then East
+      when East then South
+      when South then West
+      when West then North
+      end
+    end
+  end
+
   sig { params(filepath: String).void }
   def initialize(filepath)
     super
@@ -25,8 +46,8 @@ class GridSolver < Solver
     @num_cols = T.let(@lines.fetch(0).size, Integer)
   end
 
-  sig { returns(String) }
-  def inspect = (0...@num_rows).map { |y| "#{(0...@num_cols).map { |x| @grid[[x, y]] }.join}\n" }.join
+  sig { params(grid: T::Hash[Coordinate, String]).returns(String) }
+  def inspect(grid = @grid) = (0...@num_rows).map { |y| "#{(0...@num_cols).map { |x| grid[[x, y]] }.join}\n" }.join
 
   sig { override.params(_blk: T.proc.params(arg0: Elem).void).void }
   def each(&_blk)
