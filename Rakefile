@@ -12,8 +12,8 @@ require 'rubocop/rake_task'
 RSpec::Core::RakeTask.new
 RuboCop::RakeTask.new
 
-desc 'get input for day'
-task :input do
+desc 'create files advent day'
+task :day do
   day = ARGV[1]
   year = ARGV[2] || Date.today.year
   input = Net::HTTP.get(
@@ -24,11 +24,14 @@ task :input do
   FileUtils.mkdir_p("#{year}/#{day}")
   FileUtils.mkdir_p("spec/#{year}/#{day}")
   File.write("#{year}/#{day}/input", input)
-  File.write("spec/#{year}/#{day}/input", input)
 
   template = File.read('helper/template.rb.erb')
   erb_result = ERB.new(template).result(binding)
   File.write("#{year}/#{day}/day#{day}.rb", erb_result)
+
+  spec_template = File.read('helper/spec_template.rb.erb')
+  spec_erb_result = ERB.new(spec_template).result(binding)
+  File.write("spec/#{year}/#{day}/day#{day}_spec.rb", spec_erb_result)
 end
 
 # Suppress errors for day argument to input task
