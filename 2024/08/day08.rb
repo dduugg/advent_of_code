@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require_relative '../../helper/solver'
+require_relative '../../helper/grid_solver'
 
 class Y2024D08 < GridSolver
   Elem = type_member(:out) { { fixed: [Integer, Integer] } }

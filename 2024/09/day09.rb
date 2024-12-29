@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 require_relative '../../helper/solver'
@@ -38,7 +38,7 @@ class Y2024D09 < Solver
       @files.pop if @files.fetch(-1).fetch(0).zero?
       return [block, checksum] if @files.empty?
 
-      @files[-1][0] -= 1
+      @files.fetch(-1)[0] -= 1
       checksum += @files.fetch(-1).fetch(1) * block
       block += 1
       space_size -= 1

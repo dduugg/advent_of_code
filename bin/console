@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# typed: strict
+# typed: false
 # frozen_string_literal: true
 
 require 'bundler/setup'
@@ -8,7 +8,11 @@ require 'pry-byebug'
 Bundler.require
 
 def reload
-  Dir[File.expand_path '2024/**/*.rb'].each { load(_1) }
+  original_verbosity = $VERBOSE
+  $VERBOSE = nil
+  year = Date.today.year - (Date.today.month < 12 ? 1 : 0)
+  Dir[File.expand_path "#{year}/**/*.rb"].each { load(_1) }
+  $VERBOSE = original_verbosity
 end
 
 reload
